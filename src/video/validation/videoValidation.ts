@@ -118,7 +118,11 @@ export const updateVideoValidation = (data: UpdateVideoInput): BaseError[] => {
 
   // -------- publicationDate
   const date = new Date(publicationDate);
-  if (isNaN(date.getTime()) || publicationDate === null) {
+  if (
+    isNaN(date.getTime()) ||
+    publicationDate === null ||
+    date.toISOString() !== publicationDate
+  ) {
     errors.push({
       field: "publicationDate",
       message: "Invalid date format",
