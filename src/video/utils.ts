@@ -6,8 +6,8 @@ export const createNewVideo = (newVideo: NewVideoInput): Video => {
   return {
     ...newVideo,
     id: new Date().getTime(),
-    canBeDownloaded: true,
-    minAgeRestriction: 8,
+    canBeDownloaded: false,
+    minAgeRestriction: null,
     createdAt: today,
     publicationDate: addDay(today),
   };
