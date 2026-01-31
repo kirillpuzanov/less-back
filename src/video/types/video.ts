@@ -19,13 +19,13 @@ export type AvailableResolution =
   | "P1440"
   | "P2160";
 
-export type NewVideoReq = {
+export type NewVideoInput = {
   title: string;
   author: string;
   availableResolutions: AvailableResolution[];
 };
 
-export type PutVideoReq = {
+export type UpdateVideoInput = {
   title: string;
   author: string;
   availableResolutions: AvailableResolution[];

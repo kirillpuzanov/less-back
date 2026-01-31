@@ -1,9 +1,13 @@
 import { Request, Response, Router } from "express";
 import { exampleDb } from "../../db/temp-db";
 import { createNewVideo } from "../utils";
-import { NewVideoReq, PutVideoReq } from "../types/video";
+import { NewVideoInput, UpdateVideoInput } from "../types/video";
 import { statuses } from "../../core/const/statuses";
 import { createBaseError } from "../../core/utils/baseError";
+import {
+  createVideoValidation,
+  updateVideoValidation,
+} from "../validation/videoValidation";
 
 export const videoRouter = Router({});
 
@@ -11,7 +15,7 @@ videoRouter
 
   // получить все видео
   .get("", (_, res: Response) => {
-    res.status(statuses.ok).send(exampleDb);
+    res.status(statuses.ok).send(exampleDb.videos);
   })
 
   // получить видео по id
@@ -33,9 +37,15 @@ videoRouter
   })
 
   // создание видео
-  .post("/", (req: Request<{}, {}, NewVideoReq>, res: Response) => {
+  .post("/", (req: Request<{}, {}, NewVideoInput>, res: Response) => {
+    const errors = createVideoValidation(req.body);
+
+    if (errors.length > 0) {
+      res.status(statuses.badRequest).send(createBaseError(errors));
+      return;
+    }
+
     const newVideo = createNewVideo(req.body);
-    // todo валидация
     exampleDb.videos.push(newVideo);
     res.status(statuses.created).send(newVideo);
   })
@@ -43,7 +53,7 @@ videoRouter
   // обновление видео
   .put(
     "/:id",
-    (req: Request<{ id: string }, {}, PutVideoReq>, res: Response) => {
+    (req: Request<{ id: string }, {}, UpdateVideoInput>, res: Response) => {
       const videoId = Number.parseInt(req.params.id);
       const idx = exampleDb.videos.findIndex((el) => el.id === videoId);
 
@@ -57,7 +67,12 @@ videoRouter
           ]),
         );
       }
-      // todo валидация
+      const errors = updateVideoValidation(req.body);
+
+      if (errors.length > 0) {
+        res.status(statuses.badRequest).send(createBaseError(errors));
+        return;
+      }
 
       const currentVideo = exampleDb.videos[idx];
       const {

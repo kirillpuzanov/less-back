@@ -1,7 +1,7 @@
-import { NewVideoReq, Video } from "./types/video";
+import { NewVideoInput, Video } from "./types/video";
 import { addDay } from "../core/utils/date";
 
-export const createNewVideo = (newVideo: NewVideoReq): Video => {
+export const createNewVideo = (newVideo: NewVideoInput): Video => {
   const today = new Date().toISOString();
   return {
     ...newVideo,
