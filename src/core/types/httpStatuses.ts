@@ -1,3 +1,3 @@
-import { httpStatuses } from "../const/httpStatuses";
+import { statuses } from "../const/statuses";
 
-export type HttpStatus = (typeof httpStatuses)[keyof typeof httpStatuses];
+export type HttpStatus = (typeof statuses)[keyof typeof statuses];

@@ -1,4 +1,4 @@
-export const httpStatuses: Record<string, number> = {
+export const statuses = {
   ok: 200,
   created: 201,
   noContent: 204,
@@ -8,5 +8,5 @@ export const httpStatuses: Record<string, number> = {
   forbidden: 403,
   notFound: 404,
 
-  serverError: 500
+  serverError: 500,
 } as const;

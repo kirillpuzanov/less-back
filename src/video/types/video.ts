@@ -1,12 +1,35 @@
 export type Video = {
-  id: number
-  title: string
-  author: string
-  canBeDownloaded: boolean
-  minAgeRestriction: number | null
-  createdAt: string,
-  publicationDate: string,
-  availableResolutions: AvailableResolution[]
-}
+  id: number;
+  title: string;
+  author: string;
+  canBeDownloaded: boolean;
+  minAgeRestriction: number | null;
+  createdAt: string;
+  publicationDate: string;
+  availableResolutions: AvailableResolution[];
+};
 
-export type AvailableResolution = "P144" | "P240" | "P360" | "P480" | "P720" | "P1080" | "P1440" | "P2160"
+export type AvailableResolution =
+  | "P144"
+  | "P240"
+  | "P360"
+  | "P480"
+  | "P720"
+  | "P1080"
+  | "P1440"
+  | "P2160";
+
+export type NewVideoReq = {
+  title: string;
+  author: string;
+  availableResolutions: AvailableResolution[];
+};
+
+export type PutVideoReq = {
+  title: string;
+  author: string;
+  availableResolutions: AvailableResolution[];
+  canBeDownloaded: boolean;
+  minAgeRestriction: number;
+  publicationDate: string;
+};
